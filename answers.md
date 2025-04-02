@@ -1,6 +1,6 @@
-## 1. Jaký je vývoj mezd v jednotlivých odvětvích?
+#1. What is the salary development across different industries?
 
-**Použitý SQL dotaz:**
+**SQL query used:**
 ```sql
 SELECT industry_branch_code, payroll_year, 
        ROUND(AVG(value)::numeric, 2) AS avg_salary
@@ -9,6 +9,9 @@ WHERE value_type_code = 5958
 GROUP BY industry_branch_code, payroll_year
 ORDER BY industry_branch_code, payroll_year;
 
-Shrnutí výsledků: Od roku 2000 do roku 2021 průměrné mzdy v jednotlivých odvětvích stabilně rostly. Největší nárůst byl zaznamenán v IT a bankovnictví. Nejnižší průměrné mzdy byly dlouhodobě v odvětví ubytování a stravování.
+Summary of results:
+From 2000 to 2021, the average salaries in various industries have shown a steady increase.
+The most significant growth was observed in the IT and banking sectors.
+On the other hand, the lowest average salaries were consistently recorded in the accommodation and food service industry.
 
-Exportovaný soubor: salary_by_industry.csv
+Exported CSV file: salary_by_industry.csv
