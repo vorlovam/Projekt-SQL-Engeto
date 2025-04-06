@@ -1,6 +1,7 @@
+**SQL query used:**
+
 #1. What is the salary development across different industries?
 
-**SQL query used:**
 ```sql
 SELECT industry_branch_code, payroll_year, 
        ROUND(AVG(value)::numeric, 2) AS avg_salary
