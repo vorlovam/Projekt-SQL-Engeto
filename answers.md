@@ -40,3 +40,42 @@ Unfortunately, the average milk price data appears to be missing (NULL), so the 
 
 Exported CSV file: milk_purchasing_power_2021.csv
 
+## 3. Which food category has the slowest price increase?
+
+**SQL query used:**
+
+```sql
+WITH prices AS (
+  SELECT
+    category_code,
+    ROUND(AVG(CASE WHEN EXTRACT(YEAR FROM date_from) = 2006 THEN value END)::numeric, 2) AS price_2006,
+    ROUND(AVG(CASE WHEN EXTRACT(YEAR FROM date_from) = 2018 THEN value END)::numeric, 2) AS price_2018
+  FROM czechia_price
+  GROUP BY category_code
+),
+price_growth AS (
+  SELECT
+    category_code,
+    price_2006,
+    price_2018,
+    ROUND(
+      CAST(
+        (POWER(price_2018 / price_2006, 1.0 / 12) - 1) * 100
+        AS NUMERIC
+      ),
+      2
+    ) AS cagr_percentage
+  FROM prices
+  WHERE price_2006 IS NOT NULL AND price_2018 IS NOT NULL
+)
+SELECT *
+FROM price_growth
+ORDER BY cagr_percentage ASC;
+```
+
+**Summary of results:**
+
+The food category with the slowest average annual price increase from 2006 to 2018 is the one with the **lowest CAGR (compound annual growth rate)**. This means it had the **least inflation over time**.
+
+Exported CSV file: slowest_price_growth.csv
+
