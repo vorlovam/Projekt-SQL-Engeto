@@ -1,4 +1,4 @@
----
+
 ## 1. What is the salary development across different industries?
 
 **SQL query used:**
