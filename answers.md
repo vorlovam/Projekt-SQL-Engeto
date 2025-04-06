@@ -1,6 +1,6 @@
 **SQL query used:**
 
-#1. What is the salary development across different industries?
+--- #1. What is the salary development across different industries?
 
 ```sql
 SELECT industry_branch_code, payroll_year, 
@@ -17,7 +17,7 @@ On the other hand, the lowest average salaries were consistently recorded in the
 
 Exported CSV file: salary_by_industry.csv
 
-## 2. How many liters of milk could be bought from the average salary in 2021?
+--- ## 2. How many liters of milk could be bought from the average salary in 2021?
 
 **SQL query used:**
 ```sql
@@ -41,7 +41,7 @@ Unfortunately, the average milk price data appears to be missing (NULL), so the 
 
 Exported CSV file: milk_purchasing_power_2021.csv
 
-## 3. Which food category has the slowest price increase?
+--- ## 3. Which food category has the slowest price increase?
 
 **SQL query used:**
 
@@ -73,7 +73,6 @@ SELECT *
 FROM price_growth
 ORDER BY cagr_percentage ASC;
 ```
-
 **Summary of results:**
 
 The food category with the slowest average annual price increase from 2006 to 2018 is the one with the **lowest CAGR (compound annual growth rate)**. This means it had the **least inflation over time**.
