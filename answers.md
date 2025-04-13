@@ -84,3 +84,43 @@ The food category with the slowest average annual price increase from 2006 to 20
 This means it had the **least inflation over time**.
 
 **Exported CSV file:** `slowest_price_growth.csv`
+
+### 4. Was there a year when food price growth was significantly higher than salary growth (more than 10%)?
+
+**SQL query used:**
+```sql
+WITH salary_growth_pct AS (
+    SELECT 
+        payroll_year AS year,
+        ROUND(
+            (AVG(value) - LAG(AVG(value)) OVER (ORDER BY payroll_year))
+            / LAG(AVG(value)) OVER (ORDER BY payroll_year)::numeric * 100,
+        2) AS salary_growth_pct
+    FROM czechia_payroll
+    WHERE value_type_code = 5958
+    GROUP BY payroll_year
+),
+food_price_growth_pct AS (
+    SELECT 
+        EXTRACT(YEAR FROM date_from) AS year,
+        ROUND(
+            (AVG(value) - LAG(AVG(value)) OVER (ORDER BY EXTRACT(YEAR FROM date_from)))
+            / LAG(AVG(value)) OVER (ORDER BY EXTRACT(YEAR FROM date_from))::numeric * 100,
+        2) AS food_price_growth_pct
+    FROM czechia_price
+    GROUP BY EXTRACT(YEAR FROM date_from)
+    HAVING EXTRACT(YEAR FROM date_from) BETWEEN 2006 AND 2018
+)
+SELECT 
+    s.year,
+    s.salary_growth_pct,
+    f.food_price_growth_pct,
+    ROUND((f.food_price_growth_pct::numeric - s.salary_growth_pct::numeric), 2) AS growth_diff_pct
+FROM salary_growth_pct s
+JOIN food_price_growth_pct f ON s.year = f.year
+WHERE (f.food_price_growth_pct - s.salary_growth_pct) > 10
+ORDER BY s.year;
+
+Summary of results: No year was found where the food price growth exceeded the salary growth by more than 10%.
+
+Exported CSV file: no_year_price_growth_above_salary_10pct.csv
