@@ -127,4 +127,27 @@ No year was found where the food price growth exceeded the salary growth by more
 
 **Exported CSV file:** `no_year_price_growth_above_salary_10pct.csv`
 
+### 5. Does the level of GDP affect changes in salaries and food prices?
+
+**SQL query used:**
+
+```sql
+SELECT year, AVG(value)::numeric AS avg_gdp
+FROM czechia_gdp
+WHERE value_type_code = 200
+GROUP BY year
+ORDER BY year;
+```
+
+**Summary of results:**
+
+The query attempts to select average GDP values by year from the `czechia_gdp` table. However, this table is not included in the dataset. As a result, the query returns an error or no data.
+
+**Conclusion:**
+
+It is not possible to determine the impact of GDP on salary or food price growth based on the current data. To perform this analysis, GDP data would need to be added manually from an official source such as the Czech Statistical Office.
+
+Exported CSV file: _no output – source table missing_
+
+
 
