@@ -120,7 +120,11 @@ FROM salary_growth_pct s
 JOIN food_price_growth_pct f ON s.year = f.year
 WHERE (f.food_price_growth_pct - s.salary_growth_pct) > 10
 ORDER BY s.year;
+```
 
-Summary of results: No year was found where the food price growth exceeded the salary growth by more than 10%.
+**Summary of results:**
+No year was found where the food price growth exceeded the salary growth by more than 10%.
 
-Exported CSV file: no_year_price_growth_above_salary_10pct.csv
+**Exported CSV file:** `no_year_price_growth_above_salary_10pct.csv`
+
+
